@@ -6,6 +6,7 @@ import api.exam.io.read.info.domain.category.error.CategoryNotFoundException;
 import api.exam.io.read.info.domain.product.domain.persist.Product;
 import api.exam.io.read.info.domain.product.domain.persist.ProductRepository;
 import api.exam.io.read.info.domain.product.dto.SimpleProductResponse;
+import api.exam.io.read.info.domain.product.error.ProductNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,12 @@ public class ProductService {
         Product savedProduct = productRepository.save(product);
 
         return SimpleProductResponse.of(savedProduct);
+    }
+
+    public void remove(final String name) {
+        Product findProduct = productRepository.findByName(name)
+                .orElseThrow(() -> new ProductNotFoundException("찾을 수 없는 상태입니다."));
+
+        productRepository.delete(findProduct);
     }
 }

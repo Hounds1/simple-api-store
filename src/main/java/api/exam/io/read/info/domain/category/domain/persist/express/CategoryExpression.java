@@ -29,8 +29,5 @@ public enum CategoryExpression {
         }
     };
 
-
-
-
     public abstract BooleanExpression eqCategoryField(final String keyword);
 }
