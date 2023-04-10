@@ -1,0 +1,22 @@
+spring:
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+
+  datasource:
+    url: "jdbc:mariadb://localhost:3306/mosk_manager"
+    username: "mosk_manager"
+    password: 1234
+
+server:
+  port: 9090
+
+logging:
+  level:
+    api.exam.io: debug
