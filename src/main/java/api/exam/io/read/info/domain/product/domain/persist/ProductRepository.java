@@ -1,4 +1,4 @@
-package api.exam.io.read.info.domain.Product.domain;
+package api.exam.io.read.info.domain.product.domain.persist;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

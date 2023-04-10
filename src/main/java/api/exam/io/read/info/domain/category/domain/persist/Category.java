@@ -1,6 +1,6 @@
 package api.exam.io.read.info.domain.category.domain.persist;
 
-import api.exam.io.read.info.domain.Product.domain.Product;
+import api.exam.io.read.info.domain.product.domain.persist.Product;
 import lombok.*;
 
 import javax.persistence.*;

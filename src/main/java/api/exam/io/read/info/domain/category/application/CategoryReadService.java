@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -19,5 +21,9 @@ public class CategoryReadService {
     public SimpleCategoryResponse findByCategoryName(final String categoryName) {
         return categoryRepository.findByCategoryName(categoryName)
                 .orElseThrow(() -> new CategoryNotFoundException("찾을 수 있는 상태가 아닙니다."));
+    }
+
+    public List<SimpleCategoryResponse> findAllCategoryByStoreName(final String storeName) {
+        return categoryRepository.findAllCategoryByStoreName(storeName);
     }
 }

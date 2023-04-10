@@ -1,4 +1,4 @@
-package api.exam.io.read.info.domain.Product.domain;
+package api.exam.io.read.info.domain.product.domain.persist;
 
 import api.exam.io.read.info.domain.category.domain.persist.Category;
 import lombok.*;
@@ -19,7 +19,17 @@ public class Product {
 
     private int price;
 
+    private String storeName;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
+
+    /**
+     * 비즈니스 로직
+     */
+
+    public void setCategory(final Category category) {
+        this.category = category;
+    }
 }
