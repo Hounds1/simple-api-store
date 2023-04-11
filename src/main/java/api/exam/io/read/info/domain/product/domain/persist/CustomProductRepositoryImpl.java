@@ -46,7 +46,8 @@ public class CustomProductRepositoryImpl implements CustomProductRepository{
         }
 
         JPAQuery<Long> count = query.select(product.count())
-                .from(product);
+                .from(product)
+                .where(product.storeName.eq(productSearch.getStoreName()));
 
         return PageCustomResponse.of(PageableExecutionUtils.getPage(products, pageable, count::fetchFirst));
     }

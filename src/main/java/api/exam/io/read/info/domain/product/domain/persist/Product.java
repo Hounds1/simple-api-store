@@ -1,6 +1,7 @@
 package api.exam.io.read.info.domain.product.domain.persist;
 
 import api.exam.io.read.info.domain.category.domain.persist.Category;
+import api.exam.io.read.info.domain.multipart.domain.persist.FileData;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,11 +26,19 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "file_data_id")
+    private FileData fileData;
+
     /**
      * 비즈니스 로직
      */
 
     public void setCategory(final Category category) {
         this.category = category;
+    }
+
+    public void setFileData(final FileData fileData) {
+        this.fileData = fileData;
     }
 }
