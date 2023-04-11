@@ -24,7 +24,6 @@ import java.util.UUID;
 public class FileService {
 
     private static final String LOCAL_PATH = "C:\\Users\\Student\\Desktop\\study\\imgs\\";
-
     private final FileDataRepository fileDataRepository;
     private final ProductRepository productRepository;
 
