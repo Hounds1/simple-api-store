@@ -28,7 +28,7 @@ public class ProductController {
     private final ProductReadService productReadService;
 
     @PostMapping("/products")
-    public ResponseEntity<SimpleProductResponse> create(@RequestBody final ProductCreateRequest request) {
+    public ResponseEntity<SimpleProductResponse> create(@RequestBody ProductCreateRequest request) {
         log.info("create product request info : [name : {}], [price : {}], [storeName : {}], [categoryName : {}]",
                 request.getName(), request.getPrice(), request.getStoreName(), request.getCategoryName());
 
@@ -37,7 +37,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/products")
-    public ResponseEntity<Void> remove(@RequestParam(name = "name") final String name) {
+    public ResponseEntity<Void> remove(@RequestParam(name = "name") String name) {
         productService.remove(name);
 
         return ResponseEntity.noContent().build();
