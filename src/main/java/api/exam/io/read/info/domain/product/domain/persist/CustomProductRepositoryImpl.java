@@ -1,7 +1,5 @@
 package api.exam.io.read.info.domain.product.domain.persist;
 
-import api.exam.io.read.info.domain.category.domain.persist.QCategory;
-import api.exam.io.read.info.domain.product.domain.persist.express.ProductExpression;
 import api.exam.io.read.info.domain.product.dto.ProductAllResponse;
 import api.exam.io.read.info.domain.product.dto.ProductSearch;
 import api.exam.io.read.info.global.common.PageCustomResponse;
