@@ -33,9 +33,9 @@ public class CustomCategoryRepositoryImpl implements CustomCategoryRepository {
     @Override
     public List<SimpleCategoryResponse> findAllCategoryByStoreName(final String storeName) {
         List<SimpleCategoryResponse> categories = query.select(Projections.constructor(SimpleCategoryResponse.class,
-                        category.id,
-                        category.name,
-                        category.storeName))
+                        category.id.as("id"),
+                        category.name.as("name"),
+                        category.storeName.as("storeName")))
                 .from(category)
                 .where(category.storeName.eq(storeName))
                 .fetch();

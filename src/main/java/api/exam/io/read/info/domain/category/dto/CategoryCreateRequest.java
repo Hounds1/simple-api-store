@@ -12,9 +12,12 @@ public class CategoryCreateRequest {
 
     private String name;
 
+    private String storeName;
+
     public Category toEntity() {
         return Category.builder()
                 .name(name)
+                .storeName(storeName)
                 .build();
     }
 }

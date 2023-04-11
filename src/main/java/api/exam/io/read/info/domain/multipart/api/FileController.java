@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
@@ -21,7 +22,13 @@ public class FileController {
     private final FileService fileService;
     private final FileReadService fileReadService;
     @PostMapping("/files")
-    public ResponseEntity<Void> create(@RequestBody FileCreateRequest request) throws CanNotSaveFileDataException {
+    public ResponseEntity<Void> create(@RequestParam(name = "file")MultipartFile file,
+                                       @RequestParam(name = "productId")Long productId) throws CanNotSaveFileDataException {
+        FileCreateRequest request = FileCreateRequest.builder()
+                .file(file)
+                .productId(productId)
+                .build();
+
         fileService.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

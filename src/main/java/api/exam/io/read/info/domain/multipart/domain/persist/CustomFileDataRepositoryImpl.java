@@ -22,8 +22,8 @@ public class CustomFileDataRepositoryImpl implements CustomFileDataRepository{
     @Override
     public Optional<FileSearch> findByProductId(Long productId) {
         return Optional.ofNullable(query.select(Projections.constructor(FileSearch.class,
-                fileData.filePath,
-                fileData.contentType))
+                fileData.filePath.as("filePath"),
+                fileData.contentType.as("contentType")))
                 .from(fileData)
                         .leftJoin(fileData.product, product)
                 .where(fileData.product.id.eq(productId))
