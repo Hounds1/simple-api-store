@@ -12,9 +12,11 @@ import lombok.*;
 public class SimpleMemberResponse {
 
     private String username;
+
+    private String storeName;
     private RoleType role;
 
     public static SimpleMemberResponse of(final Member member) {
-        return new SimpleMemberResponse(member.getUsername(), member.getRole());
+        return new SimpleMemberResponse(member.getUsername(), member.getStoreName() ,member.getRole());
     }
 }
