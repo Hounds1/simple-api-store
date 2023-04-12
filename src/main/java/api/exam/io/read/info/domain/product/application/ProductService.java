@@ -12,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static api.exam.io.read.info.global.error.ErrorCode.*;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -23,7 +25,7 @@ public class ProductService {
 
     public SimpleProductResponse create(final Product product, final String categoryName) {
         Category findCategory = categoryRepository.findByName(categoryName)
-                .orElseThrow(() -> new CategoryNotFoundException("찾을 수 없는 상태입니다."));
+                .orElseThrow(() -> new CategoryNotFoundException(CATEGORY_NOT_FOUND));
 
         log.info("findCategory name is [{}]", findCategory.getName());
 
@@ -35,7 +37,7 @@ public class ProductService {
 
     public void remove(final String name) {
         Product findProduct = productRepository.findByName(name)
-                .orElseThrow(() -> new ProductNotFoundException("찾을 수 없는 상태입니다."));
+                .orElseThrow(() -> new ProductNotFoundException(PRODUCT_NOT_FOUND));
 
         productRepository.delete(findProduct);
     }

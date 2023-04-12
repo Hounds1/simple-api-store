@@ -1,6 +1,5 @@
 package api.exam.io.read.info.domain.member.domain.persist.express;
 
-import api.exam.io.read.info.domain.member.domain.persist.QMember;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import org.springframework.util.StringUtils;
 

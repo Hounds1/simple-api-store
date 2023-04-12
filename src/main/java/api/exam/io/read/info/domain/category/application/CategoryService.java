@@ -8,7 +8,6 @@ import api.exam.io.read.info.domain.category.error.CategoryNotFoundException;
 import api.exam.io.read.info.domain.member.domain.persist.Member;
 import api.exam.io.read.info.domain.member.domain.persist.MemberRepository;
 import api.exam.io.read.info.domain.member.error.MemberNotFoundException;
-import api.exam.io.read.info.global.error.ErrorCode;
 import api.exam.io.read.info.global.security.principal.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

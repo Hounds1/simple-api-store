@@ -1,7 +1,7 @@
 package api.exam.io.read.info.domain.category.domain.persist;
 
 import api.exam.io.read.info.domain.category.dto.SimpleCategoryResponse;
-import api.exam.io.read.info.domain.category.error.NoSearchCategories;
+import api.exam.io.read.info.domain.category.error.CategoryNotFoundException;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static api.exam.io.read.info.domain.category.domain.persist.QCategory.*;
+import static api.exam.io.read.info.global.error.ErrorCode.*;
 
 
 @Repository
@@ -41,7 +42,7 @@ public class CustomCategoryRepositoryImpl implements CustomCategoryRepository {
                 .fetch();
 
         if (categories.size() == 0) {
-            throw new NoSearchCategories("카테고리가 존재하지 않습니다.");
+            throw new CategoryNotFoundException(CATEGORY_NOT_FOUND);
         }
 
         return categories;
