@@ -7,6 +7,7 @@ import api.exam.io.read.info.domain.product.dto.ProductCreateRequest;
 import api.exam.io.read.info.domain.product.dto.ProductSearch;
 import api.exam.io.read.info.domain.product.dto.SimpleProductResponse;
 import api.exam.io.read.info.global.common.PageCustomResponse;
+import api.exam.io.read.info.global.security.principal.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -28,7 +30,7 @@ public class ProductController {
     private final ProductReadService productReadService;
 
     @PostMapping("/products")
-    public ResponseEntity<SimpleProductResponse> create(@RequestBody final ProductCreateRequest request) {
+    public ResponseEntity<SimpleProductResponse> create(@RequestBody ProductCreateRequest request) {
         log.info("create product request info : [name : {}], [price : {}], [storeName : {}], [categoryName : {}]",
                 request.getName(), request.getPrice(), request.getStoreName(), request.getCategoryName());
 
@@ -37,9 +39,8 @@ public class ProductController {
     }
 
     @DeleteMapping("/products")
-    public ResponseEntity<Void> remove(@RequestParam(name = "name") final String name) {
+    public ResponseEntity<Void> remove(@RequestParam(name = "name") String name) {
         productService.remove(name);
-
         return ResponseEntity.noContent().build();
     }
 
@@ -53,5 +54,9 @@ public class ProductController {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(productReadService.findAllByNameOrStoreName(productSearch, pageable));
+    }
+
+    public CustomUserDetails getPrincipal() {
+        return (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }
