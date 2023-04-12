@@ -20,7 +20,7 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping("/members")
+    @PostMapping("/public/members")
     public ResponseEntity<SimpleMemberResponse> join(@RequestBody JoinRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(memberService.create(request.toEntity()));
     }

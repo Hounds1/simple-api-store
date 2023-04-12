@@ -1,7 +1,7 @@
 package api.exam.io.read.info.global.config;
 
 import api.exam.io.read.info.global.jwt.JwtAccessDeniedHandler;
-import api.exam.io.read.info.global.jwt.JwtAuthenticationEnrtyPoint;
+import api.exam.io.read.info.global.jwt.JwtAuthenticationEntryPoint;
 import api.exam.io.read.info.global.jwt.TokenProvider;
 import api.exam.io.read.info.global.jwt.util.JwtSecurityConfig;
 import api.exam.io.read.info.global.security.CustomAuthenticationProvider;
@@ -29,7 +29,7 @@ import static org.springframework.web.cors.CorsConfiguration.*;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final JwtAuthenticationEnrtyPoint jwtAuthenticationEnrtyPoint;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final TokenProvider tokenProvider;
 
@@ -53,7 +53,7 @@ public class SecurityConfig {
                 .cors().configurationSource(corsConfigurationSource())
                 .and()
                 .exceptionHandling()
-                .authenticationEntryPoint(jwtAuthenticationEnrtyPoint)
+                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .accessDeniedHandler(jwtAccessDeniedHandler)
                 .and()
                 .authenticationProvider(customAuthenticationProvider())

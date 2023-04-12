@@ -30,7 +30,7 @@ public class AuthController {
                 .body(SimpleAuthResponse.from(token.getAccessToken(), true));
     }
 
-    @PostMapping("/reissue")
+    @PostMapping("/public/reissue")
     public ResponseEntity<SimpleAuthResponse> reissue(@CookieValue(name = "refreshToken") String refreshToken) {
         log.info("refreshToken val : [{}]", refreshToken);
         return ResponseEntity.ok().body(SimpleAuthResponse.from(authService.reissue(refreshToken), true));

@@ -15,10 +15,13 @@ public class JoinRequest {
 
     private String password;
 
+    private String storeName;
+
     public Member toEntity() {
         return Member.builder()
                 .username(username)
                 .password(password)
+                .storeName(storeName)
                 .role(RoleType.USER)
                 .build();
     }

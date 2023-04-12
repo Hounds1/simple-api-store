@@ -19,7 +19,6 @@ import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,12 +35,12 @@ public class TokenProvider implements InitializingBean {
     private final CustomUserDetailsService userDetailsService;
 
     public TokenProvider(@Value("${jwt.secret}") String secret,
-                         @Value("${jwt.accessTokenValidityInMilliseconds}") long accessTokenValidityInMilliseconds,
-                         @Value("${jwt.refreshTokenValidityInMilliseconds}") long refreshTokenValidityInMilliseconds,
+                         @Value("${jwt.accessToken-validity-in-seconds}") long accessTokenValidityInMilliseconds,
+                         @Value("${jwt.refreshToken-validity-in-seconds}") long refreshTokenValidityInMilliseconds,
                          CustomUserDetailsService userDetailsService) {
         this.secret = secret;
-        this.accessTokenValidityInMilliseconds = accessTokenValidityInMilliseconds;
-        this.refreshTokenValidityInMilliseconds = refreshTokenValidityInMilliseconds;
+        this.accessTokenValidityInMilliseconds = accessTokenValidityInMilliseconds * 1000;
+        this.refreshTokenValidityInMilliseconds = refreshTokenValidityInMilliseconds * 1000;
         this.userDetailsService = userDetailsService;
     }
 

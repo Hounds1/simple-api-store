@@ -16,7 +16,7 @@ public class JwtFilter extends GenericFilter {
 
     private final TokenProvider tokenProvider;
 
-    private static final String AUTHORIZATION_HEADER = "Authorization";
+    public static final String AUTHORIZATION_HEADER = "Authorization";
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest servletRequest = (HttpServletRequest) request;
