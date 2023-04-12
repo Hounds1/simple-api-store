@@ -22,6 +22,8 @@ public class Member {
 
     private String password;
 
+    private String storeName;
+
     private RoleType role;
 
     public void setEncodePass(final String encodePass) {

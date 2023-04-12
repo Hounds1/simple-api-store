@@ -1,5 +1,6 @@
 package api.exam.io.read.info.domain.category.api;
 
+import api.exam.io.read.info.domain.auth.error.AuthInfoMismatchException;
 import api.exam.io.read.info.domain.category.application.CategoryReadService;
 import api.exam.io.read.info.domain.category.application.CategoryService;
 import api.exam.io.read.info.domain.category.dto.CategoryCreateRequest;
@@ -24,8 +25,8 @@ public class CategoryController {
     private final CategoryReadService categoryReadService;
 
     @PostMapping("/categories")
-    public ResponseEntity<SimpleCategoryResponse> create(@RequestBody CategoryCreateRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.create(request.toEntity()));
+    public ResponseEntity<SimpleCategoryResponse> create(@RequestBody CategoryCreateRequest request) throws AuthInfoMismatchException {
+        return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.create(request.toEntity(),getPrincipal()));
     }
 
     @DeleteMapping("/categories")

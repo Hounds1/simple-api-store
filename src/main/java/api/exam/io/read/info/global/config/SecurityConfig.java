@@ -62,7 +62,6 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .antMatchers(PUBLIC).permitAll()
                 .anyRequest().authenticated();
-
         security
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
