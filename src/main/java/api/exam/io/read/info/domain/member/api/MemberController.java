@@ -8,10 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,6 +20,12 @@ public class MemberController {
     @PostMapping("/public/members")
     public ResponseEntity<SimpleMemberResponse> join(@RequestBody JoinRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(memberService.create(request.toEntity()));
+    }
+
+    @DeleteMapping("/members")
+    public ResponseEntity<Void> unActivated() {
+        memberService.unActivated(getPrincipal());
+        return ResponseEntity.noContent().build();
     }
 
     public CustomUserDetails getPrincipal() {

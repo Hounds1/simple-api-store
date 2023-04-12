@@ -24,9 +24,15 @@ public class Member {
 
     private String storeName;
 
+    private boolean activated;
+
     private RoleType role;
 
     public void setEncodePass(final String encodePass) {
         this.password = encodePass;
+    }
+
+    public void unActivated() {
+        this.activated = false;
     }
 }

@@ -22,6 +22,7 @@ public class JoinRequest {
                 .username(username)
                 .password(password)
                 .storeName(storeName)
+                .activated(true)
                 .role(RoleType.USER)
                 .build();
     }
