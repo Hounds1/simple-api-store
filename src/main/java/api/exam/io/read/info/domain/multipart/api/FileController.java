@@ -5,10 +5,12 @@ import api.exam.io.read.info.domain.multipart.application.FileService;
 import api.exam.io.read.info.domain.multipart.dto.FileCreateRequest;
 import api.exam.io.read.info.domain.multipart.dto.SimpleFileResponse;
 import api.exam.io.read.info.domain.multipart.error.CanNotSaveFileDataException;
+import api.exam.io.read.info.global.security.principal.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,5 +41,9 @@ public class FileController {
         return ResponseEntity.ok()
                 .contentType(MediaType.valueOf(output.getContentType()))
                 .body(output.getFile());
+    }
+
+    public CustomUserDetails getPrincipal() {
+        return (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }

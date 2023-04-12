@@ -4,10 +4,12 @@ import api.exam.io.read.info.domain.category.application.CategoryReadService;
 import api.exam.io.read.info.domain.category.application.CategoryService;
 import api.exam.io.read.info.domain.category.dto.CategoryCreateRequest;
 import api.exam.io.read.info.domain.category.dto.SimpleCategoryResponse;
+import api.exam.io.read.info.global.security.principal.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,5 +42,9 @@ public class CategoryController {
     @GetMapping("/categories/all")
     public ResponseEntity<List<SimpleCategoryResponse>> findAllCategoryByStoreName(@RequestParam(name = "storeName") String storeName) {
         return ResponseEntity.status(HttpStatus.OK).body(categoryReadService.findAllCategoryByStoreName(storeName));
+    }
+
+    public CustomUserDetails getPrincipal() {
+        return (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }
