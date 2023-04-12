@@ -1,6 +1,6 @@
-package api.exam.io.read.info.domain.member.domain.application;
+package api.exam.io.read.info.domain.member.application;
 
-import api.exam.io.read.info.domain.member.domain.dto.SimpleMemberResponse;
+import api.exam.io.read.info.domain.member.dto.SimpleMemberResponse;
 import api.exam.io.read.info.domain.member.domain.persist.Member;
 import api.exam.io.read.info.domain.member.domain.persist.MemberRepository;
 import lombok.RequiredArgsConstructor;

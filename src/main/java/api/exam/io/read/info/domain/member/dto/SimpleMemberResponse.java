@@ -1,4 +1,4 @@
-package api.exam.io.read.info.domain.member.domain.dto;
+package api.exam.io.read.info.domain.member.dto;
 
 import api.exam.io.read.info.domain.member.domain.persist.Member;
 import api.exam.io.read.info.domain.member.domain.vo.RoleType;
@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 @Builder
 public class SimpleMemberResponse {
 

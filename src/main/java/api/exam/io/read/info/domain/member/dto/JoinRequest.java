@@ -1,4 +1,4 @@
-package api.exam.io.read.info.domain.member.domain.dto;
+package api.exam.io.read.info.domain.member.dto;
 
 import api.exam.io.read.info.domain.member.domain.persist.Member;
 import api.exam.io.read.info.domain.member.domain.vo.RoleType;
@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
-public class MemberCreateRequest {
+public class JoinRequest {
 
     private String username;
 
