@@ -16,6 +16,8 @@ public enum ErrorCode {
     ALREADY_PAUSED_ACCOUNT(410, "M001", "이미 탈퇴된 계정입니다."),
     MEMBER_NOT_FOUND(400, "M002", "찾을 수 없는 멤버입니다."),
 
+    ALREADY_JOINED_ACCOUNT(400, "M003", "이미 가입된 아이디입니다."),
+
     /**
      * AUTH
      */

@@ -4,6 +4,7 @@ import api.exam.io.read.info.domain.member.dto.ModifiedMemberRequest;
 import api.exam.io.read.info.domain.member.dto.SimpleMemberResponse;
 import api.exam.io.read.info.domain.member.domain.persist.Member;
 import api.exam.io.read.info.domain.member.domain.persist.MemberRepository;
+import api.exam.io.read.info.domain.member.error.AlreadyJoinedMemberException;
 import api.exam.io.read.info.domain.member.error.AlreadyPausedMemberException;
 import api.exam.io.read.info.domain.member.error.MemberNotFoundException;
 import api.exam.io.read.info.global.error.ErrorCode;
@@ -13,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 import static api.exam.io.read.info.global.error.ErrorCode.*;
 
@@ -25,6 +28,13 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     public SimpleMemberResponse create(final Member member) {
+        Optional<Member> findMember = memberRepository.findByUsername(member.getUsername());
+        if (findMember.isPresent() && findMember.get().isActivated()) {
+            throw new AlreadyJoinedMemberException(ALREADY_JOINED_ACCOUNT);
+        } else if(findMember.isPresent() && !findMember.get().isActivated()) {
+            memberRepository.delete(findMember.get());
+        }
+
         String encodePass = passwordEncoder.encode(member.getPassword());
         member.setEncodePass(encodePass);
 
