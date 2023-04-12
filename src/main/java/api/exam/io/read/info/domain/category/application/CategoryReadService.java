@@ -3,12 +3,15 @@ package api.exam.io.read.info.domain.category.application;
 import api.exam.io.read.info.domain.category.domain.persist.CategoryRepository;
 import api.exam.io.read.info.domain.category.dto.SimpleCategoryResponse;
 import api.exam.io.read.info.domain.category.error.CategoryNotFoundException;
+import api.exam.io.read.info.global.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static api.exam.io.read.info.global.error.ErrorCode.*;
 
 @Service
 @RequiredArgsConstructor
@@ -20,7 +23,7 @@ public class CategoryReadService {
 
     public SimpleCategoryResponse findByCategoryName(final String categoryName) {
         return categoryRepository.findByCategoryName(categoryName)
-                .orElseThrow(() -> new CategoryNotFoundException("찾을 수 있는 상태가 아닙니다."));
+                .orElseThrow(() -> new CategoryNotFoundException(CATEGORY_NOT_FOUND));
     }
 
     public List<SimpleCategoryResponse> findAllCategoryByStoreName(final String storeName) {

@@ -5,6 +5,7 @@ import api.exam.io.read.info.domain.auth.error.AuthInfoMismatchException;
 import api.exam.io.read.info.domain.member.domain.persist.Member;
 import api.exam.io.read.info.domain.member.domain.persist.MemberRepository;
 import api.exam.io.read.info.domain.member.error.MemberNotFoundException;
+import api.exam.io.read.info.global.error.ErrorCode;
 import api.exam.io.read.info.global.jwt.TokenProvider;
 import api.exam.io.read.info.global.jwt.dto.TokenDTO;
 import api.exam.io.read.info.global.jwt.vo.AccessToken;
@@ -19,6 +20,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static api.exam.io.read.info.global.error.ErrorCode.*;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -32,11 +36,11 @@ public class AuthService {
 
     public TokenDTO auth(final AuthRequest authRequest) throws AuthInfoMismatchException {
         Member findMember = memberRepository.findByUsername(authRequest.getUsername())
-                .orElseThrow(() -> new MemberNotFoundException("찾을 수 없는 상태의 멤버입니다"));
+                .orElseThrow(() -> new MemberNotFoundException(MEMBER_NOT_FOUND));
 
         if (passwordEncoder.matches(authRequest.getPassword(), findMember.getPassword())) {
             CustomUserDetails userDetails = memberRepository.findDetailsByUsername(authRequest.getUsername())
-                    .orElseThrow(() -> new MemberNotFoundException("찾을 수 없는 상태의 멤버입니다."));
+                    .orElseThrow(() -> new MemberNotFoundException(MEMBER_NOT_FOUND));
 
             UsernamePasswordAuthenticationToken token
                     = new UsernamePasswordAuthenticationToken(userDetails, passwordEncoder.encode(authRequest.getPassword()));
@@ -45,9 +49,8 @@ public class AuthService {
             SecurityContextHolder.getContext().setAuthentication(authenticate);
 
             return tokenProvider.createToken(userDetails.getUsername(), authenticate);
-        } else throw new AuthInfoMismatchException("로그인 정보가 일치하지 않습니다.");
+        } else throw new AuthInfoMismatchException(AUTH_INFO_MISMATCHED);
     }
-
     public AccessToken reissue(final String refreshToken) {
         if (!tokenProvider.validateToken(refreshToken)) {
             throw new IllegalStateException("토큰 검증 과정에서 예외 발생");

@@ -8,11 +8,14 @@ import api.exam.io.read.info.domain.category.error.CategoryNotFoundException;
 import api.exam.io.read.info.domain.member.domain.persist.Member;
 import api.exam.io.read.info.domain.member.domain.persist.MemberRepository;
 import api.exam.io.read.info.domain.member.error.MemberNotFoundException;
+import api.exam.io.read.info.global.error.ErrorCode;
 import api.exam.io.read.info.global.security.principal.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static api.exam.io.read.info.global.error.ErrorCode.*;
 
 @Service
 @RequiredArgsConstructor
@@ -25,18 +28,18 @@ public class CategoryService {
 
     public SimpleCategoryResponse create(final Category category, final CustomUserDetails principal) throws AuthInfoMismatchException {
         Member findMember = memberRepository.findByUsername(principal.getUsername())
-                .orElseThrow(() -> new MemberNotFoundException("찾을 수 없는 상태의 멤버입니다."));
+                .orElseThrow(() -> new MemberNotFoundException(MEMBER_NOT_FOUND));
 
         if (findMember.getStoreName().equals(category.getStoreName())) {
             Category savedCategory = categoryRepository.save(category);
 
             return SimpleCategoryResponse.of(savedCategory);
-        } else throw new AuthInfoMismatchException("로그인 중인 계정의 정보와 다릅니다.");
+        } else throw new AuthInfoMismatchException(AUTH_INFO_MISMATCHED);
     }
 
     public void remove(final Long id) {
         Category findCategory = categoryRepository.findById(id)
-                .orElseThrow(() -> new CategoryNotFoundException("찾을 수 없는 상태입니다."));
+                .orElseThrow(() -> new CategoryNotFoundException(CATEGORY_NOT_FOUND));
 
         categoryRepository.delete(findCategory);
     }
