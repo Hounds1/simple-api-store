@@ -1,5 +1,6 @@
 package api.exam.io.read.info.domain.member.application;
 
+import api.exam.io.read.info.domain.member.dto.ModifiedMemberRequest;
 import api.exam.io.read.info.domain.member.dto.SimpleMemberResponse;
 import api.exam.io.read.info.domain.member.domain.persist.Member;
 import api.exam.io.read.info.domain.member.domain.persist.MemberRepository;
@@ -29,6 +30,24 @@ public class MemberService {
 
         Member savedMember = memberRepository.save(member);
         return SimpleMemberResponse.of(savedMember);
+    }
+
+    public SimpleMemberResponse modified(final ModifiedMemberRequest request, final CustomUserDetails principal) {
+        Member modifiedTarget = memberRepository.findByUsername(principal.getUsername())
+                .orElseThrow(() -> new MemberNotFoundException(MEMBER_NOT_FOUND));
+
+        if (modifiedTarget.isActivated() && request.getPassword() != null) {
+            String encodePass = passwordEncoder.encode(request.getPassword());
+            request.setPassword(encodePass);
+
+            modifiedTarget.modified(request);
+        } else if (request.getPassword() == null) {
+            request.setPassword(modifiedTarget.getPassword());
+
+            modifiedTarget.modified(request);
+        } else throw new MemberNotFoundException(MEMBER_NOT_FOUND);
+
+        return SimpleMemberResponse.of(modifiedTarget);
     }
 
     public void unActivated(final CustomUserDetails principal) {
