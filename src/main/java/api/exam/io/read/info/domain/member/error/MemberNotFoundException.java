@@ -1,7 +1,10 @@
 package api.exam.io.read.info.domain.member.error;
 
-public class MemberNotFoundException extends IllegalStateException{
-    public MemberNotFoundException(String s) {
-        super(s);
+import api.exam.io.read.info.global.error.ErrorCode;
+import api.exam.io.read.info.global.error.exception.BusinessException;
+
+public class MemberNotFoundException extends BusinessException {
+    public MemberNotFoundException(ErrorCode errorCode) {
+        super(errorCode);
     }
 }

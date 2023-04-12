@@ -10,6 +10,7 @@ import api.exam.io.read.info.domain.multipart.error.FileDataNotFoundException;
 import api.exam.io.read.info.domain.product.domain.persist.Product;
 import api.exam.io.read.info.domain.product.domain.persist.ProductRepository;
 import api.exam.io.read.info.domain.product.error.ProductNotFoundException;
+import api.exam.io.read.info.global.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
+
+import static api.exam.io.read.info.global.error.ErrorCode.*;
 
 @Service
 @Transactional
@@ -39,13 +42,13 @@ public class FileService {
         try {
             request.getFile().transferTo(new File(LOCAL_PATH + newFileName));
         } catch (Exception e) {
-            throw new CanNotSaveFileDataException("세이브 할 수 없는 상태");
+            throw new CanNotSaveFileDataException(CAN_NOT_SAVE_FILE);
         }
 
         FileData savedFileData = fileDataRepository.save(fileData);
 
         Product findProduct = productRepository.findById(request.getProductId())
-                .orElseThrow(() -> new ProductNotFoundException("찾을 수 없는 상태의 상품입니다."));
+                .orElseThrow(() -> new ProductNotFoundException(PRODUCT_NOT_FOUND));
 
         findProduct.setFileData(savedFileData);
     }
