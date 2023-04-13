@@ -1,5 +1,6 @@
 package api.exam.io.read.info.domain.category.domain.persist;
 
+import api.exam.io.read.info.domain.category.dto.ModifiedCategoryRequest;
 import api.exam.io.read.info.domain.product.domain.persist.Product;
 import lombok.*;
 
@@ -23,4 +24,8 @@ public class Category {
 
     @OneToMany(mappedBy = "category")
     List<Product> products = new ArrayList<>();
+
+    public void modified(final ModifiedCategoryRequest request) {
+        this.name = request.getName();
+    }
 }

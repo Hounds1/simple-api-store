@@ -30,7 +30,8 @@ public class CustomMemberRepositoryImpl implements CustomMemberRepository{
         return Optional.ofNullable(query.select(Projections.constructor(CustomUserDetails.class,
                 member.id.as("id"),
                 member.username.as("username"),
-                member.role.as("role")))
+                member.role.as("role"),
+                        member.storeName.as("storeName")))
                 .from(member)
                 .where(member.username.eq(username))
                 .fetchOne());
