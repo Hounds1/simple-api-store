@@ -2,6 +2,7 @@ package api.exam.io.read.info.domain.product.domain.persist;
 
 import api.exam.io.read.info.domain.category.domain.persist.Category;
 import api.exam.io.read.info.domain.multipart.domain.persist.FileData;
+import api.exam.io.read.info.domain.product.dto.ModifiedProductRequest;
 import lombok.*;
 
 import javax.persistence.*;
@@ -40,5 +41,10 @@ public class Product {
 
     public void setFileData(final FileData fileData) {
         this.fileData = fileData;
+    }
+
+    public void modified(final ModifiedProductRequest request) {
+        this.name = request.getName();
+        this.price = request.getPrice();
     }
 }

@@ -3,12 +3,12 @@ package api.exam.io.read.info.domain.category.application;
 import api.exam.io.read.info.domain.auth.error.AuthInfoMismatchException;
 import api.exam.io.read.info.domain.category.domain.persist.Category;
 import api.exam.io.read.info.domain.category.domain.persist.CategoryRepository;
+import api.exam.io.read.info.domain.category.dto.ModifiedCategoryRequest;
 import api.exam.io.read.info.domain.category.dto.SimpleCategoryResponse;
 import api.exam.io.read.info.domain.category.error.CategoryNotFoundException;
 import api.exam.io.read.info.domain.member.domain.persist.Member;
 import api.exam.io.read.info.domain.member.domain.persist.MemberRepository;
 import api.exam.io.read.info.domain.member.error.MemberNotFoundException;
-import api.exam.io.read.info.global.error.ErrorCode;
 import api.exam.io.read.info.global.security.principal.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +35,17 @@ public class CategoryService {
 
             return SimpleCategoryResponse.of(savedCategory);
         } else throw new AuthInfoMismatchException(AUTH_INFO_MISMATCHED);
+    }
+
+    public SimpleCategoryResponse modified(final ModifiedCategoryRequest request, final CustomUserDetails principal) {
+        Category findCategory = categoryRepository.findById(request.getCategoryId())
+                .orElseThrow(() -> new CategoryNotFoundException(CATEGORY_NOT_FOUND));
+
+        if (findCategory.getStoreName().equals(principal.getStoreName())) {
+            findCategory.modified(request);
+        }
+
+        return SimpleCategoryResponse.of(findCategory);
     }
 
     public void remove(final Long id) {

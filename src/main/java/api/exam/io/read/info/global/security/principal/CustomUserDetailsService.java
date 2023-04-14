@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import static api.exam.io.read.info.global.error.ErrorCode.*;
+
 @Service
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
@@ -17,6 +19,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return memberRepository.findDetailsByUsername(username)
-                .orElseThrow( () -> new MemberNotFoundException("찾을 수 없는 상태의 멤버입니다."));
+                .orElseThrow( () -> new MemberNotFoundException(MEMBER_NOT_FOUND));
     }
 }

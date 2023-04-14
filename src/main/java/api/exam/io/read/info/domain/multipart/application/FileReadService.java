@@ -4,7 +4,6 @@ import api.exam.io.read.info.domain.multipart.domain.persist.FileDataRepository;
 import api.exam.io.read.info.domain.multipart.dto.FileSearch;
 import api.exam.io.read.info.domain.multipart.dto.SimpleFileResponse;
 import api.exam.io.read.info.domain.multipart.error.FileDataNotFoundException;
-import api.exam.io.read.info.global.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

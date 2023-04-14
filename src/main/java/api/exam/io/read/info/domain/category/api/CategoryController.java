@@ -4,6 +4,7 @@ import api.exam.io.read.info.domain.auth.error.AuthInfoMismatchException;
 import api.exam.io.read.info.domain.category.application.CategoryReadService;
 import api.exam.io.read.info.domain.category.application.CategoryService;
 import api.exam.io.read.info.domain.category.dto.CategoryCreateRequest;
+import api.exam.io.read.info.domain.category.dto.ModifiedCategoryRequest;
 import api.exam.io.read.info.domain.category.dto.SimpleCategoryResponse;
 import api.exam.io.read.info.global.security.principal.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,11 @@ public class CategoryController {
         categoryService.remove(id);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/categories")
+    public ResponseEntity<SimpleCategoryResponse> modified(@RequestBody ModifiedCategoryRequest request) {
+        return ResponseEntity.ok().body(categoryService.modified(request, getPrincipal()));
     }
 
     @GetMapping("/categories")

@@ -24,6 +24,8 @@ public class CustomUserDetails implements UserDetails, Serializable {
     private String username;
     private RoleType role;
 
+    private String storeName;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(new SimpleGrantedAuthority("ROLE_" + role));
@@ -43,6 +45,9 @@ public class CustomUserDetails implements UserDetails, Serializable {
         return id;
     }
 
+    public String getStoreName() {
+        return storeName;
+    }
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -66,6 +71,7 @@ public class CustomUserDetails implements UserDetails, Serializable {
     public static CustomUserDetails of(final Member member) {
         return new CustomUserDetails(member.getId(),
                 member.getUsername(),
-                member.getRole());
+                member.getRole(),
+                member.getStoreName());
     }
 }

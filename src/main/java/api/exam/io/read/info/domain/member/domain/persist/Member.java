@@ -1,6 +1,7 @@
 package api.exam.io.read.info.domain.member.domain.persist;
 
 import api.exam.io.read.info.domain.member.domain.vo.RoleType;
+import api.exam.io.read.info.domain.member.dto.ModifiedMemberRequest;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -34,5 +35,10 @@ public class Member {
 
     public void unActivated() {
         this.activated = false;
+    }
+
+    public void modified(final ModifiedMemberRequest request) {
+        this.password = request.getPassword();
+        this.storeName = request.getStoreName();
     }
 }

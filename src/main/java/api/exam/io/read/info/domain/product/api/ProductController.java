@@ -2,15 +2,11 @@ package api.exam.io.read.info.domain.product.api;
 
 import api.exam.io.read.info.domain.product.application.ProductReadService;
 import api.exam.io.read.info.domain.product.application.ProductService;
-import api.exam.io.read.info.domain.product.dto.ProductAllResponse;
-import api.exam.io.read.info.domain.product.dto.ProductCreateRequest;
-import api.exam.io.read.info.domain.product.dto.ProductSearch;
-import api.exam.io.read.info.domain.product.dto.SimpleProductResponse;
+import api.exam.io.read.info.domain.product.dto.*;
 import api.exam.io.read.info.global.common.PageCustomResponse;
 import api.exam.io.read.info.global.security.principal.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -42,6 +38,11 @@ public class ProductController {
     public ResponseEntity<Void> remove(@RequestParam(name = "name") String name) {
         productService.remove(name);
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/product")
+    public ResponseEntity<SimpleProductResponse> modified(@RequestBody ModifiedProductRequest request) {
+        return ResponseEntity.ok().body(productService.modified(request, getPrincipal()));
     }
 
     @GetMapping("/products/all")
